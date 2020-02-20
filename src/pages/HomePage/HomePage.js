@@ -1,12 +1,12 @@
 import React from 'react';
 
 import './HomePage.scss';
-import DirectoryMenu from '../../containers/DirectoryMenu/DirectoryMenu';
+import HomeDirectory from '../../containers/HomeDirectory/HomeDirectory';
 
 const HomePage = () => {
     return (
         <div className='homepage'>
-            <DirectoryMenu />
+            <HomeDirectory />
         </div>
     );
 }

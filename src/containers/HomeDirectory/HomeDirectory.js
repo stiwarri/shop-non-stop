@@ -1,9 +1,9 @@
 import React from 'react';
 
-import './DirectoryMenu.scss';
+import './HomeDirectory.scss';
 import MenuItem from '../../components/MenuItem/MenuItem';
 
-class DirectoryMenu extends React.Component {
+class HomeDirectory extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -55,4 +55,4 @@ class DirectoryMenu extends React.Component {
     }
 }
 
-export default DirectoryMenu;
+export default HomeDirectory;
