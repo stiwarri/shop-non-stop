@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage/HomePage';
 import Layout from './hoc/Layout/Layout';
 import ShopPage from './pages/ShopPage/ShopPage';
 import TopNavBar from './components/Navigation/TopNavBar/TopNavBar';
+import SignInSignUpPage from './pages/SignInSignUpPage/SignInSignUpPage';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Switch>
           <Route path='/' exact component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route path='/about-us' render={() => <div>Sign In Page</div>} />
+          <Route path='/about-us' component={SignInSignUpPage} />
         </Switch>
       </Layout>
     </div>
