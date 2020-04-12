@@ -1,4 +1,25 @@
-.logo {
-  font-family: "Pacifico";
-  font-size: 2rem;
+.top-nav-bar {
+  width: 100%;
+  height: 72px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+
+  .logo {
+    font-family: "Pacifico";
+    font-size: 2rem;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    .option {
+      padding: 1rem;
+    }
+  }
 }

@@ -5,20 +5,16 @@ import "./TopnavBar.scss";
 
 const TopNavBar = () => {
   return (
-    <ul>
-      <li>
+    <div className="top-nav-bar">
+      <NavLink to="/">
         <span className="logo">ShopNonStop</span>
-      </li>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="/shop">Shop</NavLink>
-      </li>
-      <li>
-        <NavLink to="/about-us">About Us</NavLink>
-      </li>
-    </ul>
+      </NavLink>
+      <div className="options">
+        <NavLink className="option" to="/">Home</NavLink>
+        <NavLink className="option" to="/shop">Shop</NavLink>
+        <NavLink className="option" to="/about-us">Sign In</NavLink>
+      </div>
+    </div>
   );
 };
 
