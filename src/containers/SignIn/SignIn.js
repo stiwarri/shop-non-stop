@@ -2,6 +2,8 @@ import React from 'react';
 
 import './SignIn.scss';
 import FormInput from '../../components/UI/FormInput/FormInput';
+import Button from '../../components/UI/Button/Button';
+import { signInWithGoogle } from '../../firebase/firebase.util';
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -25,6 +27,10 @@ class SignIn extends React.Component {
             email: '',
             password: ''
         });
+    }
+
+    testMethod = () => {
+        console.log('testing...');
     }
 
     render() {
@@ -51,7 +57,10 @@ class SignIn extends React.Component {
                         handleChange={this.inputChangeHandler}
                         required
                     />
-                    <button type="submit">Submit</button>
+                    <div className="buttons">
+                        <Button type="submit" clickHandler={this.testMethod}>Sign In</Button>
+                        <Button type="submit" clickHandler={signInWithGoogle} isThirdPartySignInButton>Sign In With Google</Button>
+                    </div>
                 </form>
             </div>
         );
