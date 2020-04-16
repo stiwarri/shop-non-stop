@@ -1,29 +1,29 @@
 import React from 'react';
 
-import './SignIn.scss';
-import SIGN_IN_FORM_CONFIG from '../../assets/config/sign-in-form';
+import './SignUp.scss';
+import SIGN_UP_FORM_CONFIG from '../../assets/config/sign-up-form';
 import FormInput from '../../components/UI/FormInput/FormInput';
 import Button from '../../components/UI/Button/Button';
-import { signInWithGoogle } from '../../firebase/firebase.util';
+import { auth, createUserProfileDocument } from '../../firebase/firebase.util';
 
-class SignIn extends React.Component {
+class SignUp extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            signInForm: SIGN_IN_FORM_CONFIG,
+            signUpForm: SIGN_UP_FORM_CONFIG,
             isFormValid: false
         };
     }
 
     inputFocusHandler = (event, elementKey) => {
         this.setState({
-            signInForm: {
-                ...this.state.signInForm,
+            signUpForm: {
+                ...this.state.signUpForm,
                 [elementKey]: {
-                    ...this.state.signInForm[elementKey],
+                    ...this.state.signUpForm[elementKey],
                     status: {
-                        ...this.state.signInForm[elementKey].status,
+                        ...this.state.signUpForm[elementKey].status,
                         isValid: true,
                         isTouched: true
                     }
@@ -33,15 +33,15 @@ class SignIn extends React.Component {
     }
 
     inputBlurHandler = (event, elementKey) => {
-        const [validity, errMsg] = this.checkElementValidity(this.state.signInForm[elementKey].validations, event.target.value);
+        const [validity, errMsg] = this.checkElementValidity(this.state.signUpForm[elementKey].validations, event.target.value);
 
         this.setState({
-            signInForm: {
-                ...this.state.signInForm,
+            signUpForm: {
+                ...this.state.signUpForm,
                 [elementKey]: {
-                    ...this.state.signInForm[elementKey],
+                    ...this.state.signUpForm[elementKey],
                     status: {
-                        ...this.state.signInForm[elementKey].status,
+                        ...this.state.signUpForm[elementKey].status,
                         isValid: validity
                     },
                     errorMessage: errMsg
@@ -52,19 +52,19 @@ class SignIn extends React.Component {
 
     inputChangeHandler = (event, elementKey) => {
         const inputValue = event.target.value.trimStart();
-        const [validity, errMsg] = this.checkElementValidity(this.state.signInForm[elementKey].validations, inputValue);
+        const [validity, errMsg] = this.checkElementValidity(this.state.signUpForm[elementKey].validations, inputValue);
 
         this.setState({
-            signInForm: {
-                ...this.state.signInForm,
+            signUpForm: {
+                ...this.state.signUpForm,
                 [elementKey]: {
-                    ...this.state.signInForm[elementKey],
+                    ...this.state.signUpForm[elementKey],
                     properties: {
-                        ...this.state.signInForm[elementKey].properties,
+                        ...this.state.signUpForm[elementKey].properties,
                         value: inputValue
                     },
                     status: {
-                        ...this.state.signInForm[elementKey].status,
+                        ...this.state.signUpForm[elementKey].status,
                         isValid: validity
                     },
                     errorMessage: errMsg
@@ -118,8 +118,8 @@ class SignIn extends React.Component {
     checkFormValidity = () => {
         let isValid = true;
 
-        for (let element in this.state.signInForm) {
-            if (!this.state.signInForm[element].status.isValid) {
+        for (let element in this.state.signUpForm) {
+            if (!this.state.signUpForm[element].status.isValid) {
                 isValid = false;
                 return isValid;
             }
@@ -128,56 +128,94 @@ class SignIn extends React.Component {
         return isValid;
     }
 
-    formSubmitHandler = event => {
-        event.preventDefault();
-        alert('Submitted');
+    formSubmitHandler = async () => {
+        let inputValues = {};
+        for (let el in this.state.signUpForm) {
+            inputValues[el] = this.state.signUpForm[el].properties.value;
+        }
+
+        if (inputValues.password !== inputValues.confirmPassword) {
+            alert('Paswwords do not match');
+        } else {
+            try {
+                const { user } = await auth.createUserWithEmailAndPassword(inputValues.email, inputValues.password);
+                await createUserProfileDocument(user, { displayName: inputValues.displayName });
+                this.resetFormHandler();
+            } catch (err) {
+                console.log(err);
+            }
+        }
     }
 
     resetFormHandler = () => {
         this.setState({
-            signInForm: {
-                ...this.state.signInForm,
-                email: {
-                    ...this.state.signInForm.email,
+            signUpForm: {
+                ...this.state.signUpForm,
+                displayName: {
+                    ...this.state.signUpForm.displayName,
                     properties: {
-                        ...this.state.signInForm.email.properties,
+                        ...this.state.signUpForm.displayName.properties,
                         value: ''
                     },
                     status: {
-                        ...this.state.signInForm.email.status,
+                        ...this.state.signUpForm.displayName.status,
+                        isValid: false,
+                        isTouched: false
+                    }
+                },
+                email: {
+                    ...this.state.signUpForm.email,
+                    properties: {
+                        ...this.state.signUpForm.email.properties,
+                        value: ''
+                    },
+                    status: {
+                        ...this.state.signUpForm.email.status,
                         isValid: false,
                         isTouched: false
                     }
                 },
                 password: {
-                    ...this.state.signInForm.password,
+                    ...this.state.signUpForm.password,
                     properties: {
-                        ...this.state.signInForm.password.properties,
+                        ...this.state.signUpForm.password.properties,
                         value: ''
                     },
                     status: {
-                        ...this.state.signInForm.password.status,
+                        ...this.state.signUpForm.password.status,
+                        isValid: false,
+                        isTouched: false
+                    }
+                },
+                confirmPassword: {
+                    ...this.state.signUpForm.confirmPassword,
+                    properties: {
+                        ...this.state.signUpForm.confirmPassword.properties,
+                        value: ''
+                    },
+                    status: {
+                        ...this.state.signUpForm.confirmPassword.status,
                         isValid: false,
                         isTouched: false
                     }
                 }
             }
-        });
+        })
     }
 
     render() {
         let formElements = [];
-        for (let el in this.state.signInForm) {
+        for (let el in this.state.signUpForm) {
             formElements.push({
                 key: el,
-                ...this.state.signInForm[el]
+                ...this.state.signUpForm[el]
             });
         }
 
         return (
-            <div className="sign-in">
-                <h2>I already have an account</h2>
-                <h4>Sign in with your email and password.</h4>
+            <div className="sign-up">
+                <h2>I do not have an account</h2>
+                <h4>Sign up with your email and password.</h4>
                 <form>
                     {
                         formElements.map(el => (
@@ -194,14 +232,13 @@ class SignIn extends React.Component {
                         ))
                     }
                     <div className="buttons">
-                        <Button disable={!this.state.isFormValid} clickHandler={this.formSubmitHandler}>Sign In</Button>
+                        <Button disable={!this.state.isFormValid} clickHandler={this.formSubmitHandler}>Sign Up</Button>
                         <Button clickHandler={this.resetFormHandler}>Reset</Button>
-                        <Button clickHandler={signInWithGoogle} isThirdPartySignInButton>Sign In With Google</Button>
                     </div>
                 </form>
             </div>
-        );
+        )
     }
 }
 
-export default SignIn;
+export default SignUp;

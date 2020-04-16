@@ -22,7 +22,7 @@ $main-color: black;
         border: none;
         border-radius: 0;
         border-bottom: 1px solid $sub-color;
-        margin: 25px 0;
+        margin: 25px 0px 10px 0;
 
         &:focus {
             outline: none;
@@ -30,6 +30,10 @@ $main-color: black;
 
         &:focus~.form-input-label {
             @include shrinkLabel();
+        }
+
+        &.error {
+            border-bottom: 1px solid red;
         }
     }
 
@@ -50,5 +54,14 @@ $main-color: black;
         &.shrink {
             @include shrinkLabel();
         }
+
+        &.error {
+            color: red;
+        }
+    }
+
+    .error-message {
+        color: red;
+        font-size: 0.8rem;
     }
 }

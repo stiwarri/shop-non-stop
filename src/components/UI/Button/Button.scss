@@ -9,15 +9,15 @@ $main-color: black;
     .button {
         display: inline-block;
         background-color: $main-color;
-        color: white;
         border: 1px solid $main-color;
+        color: white;
         padding: 1rem 2rem;
         cursor: pointer;
 
         &:hover {
             background-color: white;
             color: $main-color;
-            font-weight: bold;
+            border: 1px solid $main-color;
         }
 
         &.third-party-sign-in-button {
@@ -28,7 +28,18 @@ $main-color: black;
             &:hover {
                 background-color: white;
                 color: #4285f4;
-                font-weight: bold;
+                border: 1px solid #4285f4;
+            }
+        }
+
+        &.disable {
+            background-color: lightgray;
+            color: grey;
+            border: 1px soild lightgray;
+            cursor: not-allowed;
+
+            &:hover {
+                border: 1px soild lightgray;
             }
         }
     }
