@@ -4,7 +4,7 @@ import './SignIn.scss';
 import SIGN_IN_FORM_CONFIG from '../../assets/config/sign-in-form';
 import FormInput from '../../components/UI/FormInput/FormInput';
 import Button from '../../components/UI/Button/Button';
-import { signInWithGoogle } from '../../firebase/firebase.util';
+import { auth, signInWithGoogle } from '../../firebase/firebase.util';
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -128,9 +128,19 @@ class SignIn extends React.Component {
         return isValid;
     }
 
-    formSubmitHandler = event => {
-        event.preventDefault();
-        alert('Submitted');
+    formSubmitHandler = async event => {
+        let inputValues = {};
+        for (let el in this.state.signInForm) {
+            inputValues[el] = this.state.signInForm[el].properties.value;
+        }
+        console.log(inputValues)
+
+        try {
+            await auth.signInWithEmailAndPassword(inputValues.email, inputValues.password)
+            this.resetFormHandler();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     resetFormHandler = () => {
