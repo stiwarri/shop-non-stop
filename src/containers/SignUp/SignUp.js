@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './SignUp.scss';
 import SIGN_UP_FORM_CONFIG from '../../assets/config/sign-up-form';
 import FormInput from '../../components/UI/FormInput/FormInput';
 import Button from '../../components/UI/Button/Button';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.util';
+import * as modalActionCreators from '../../store/actions/modal';
+import * as authActionCreators from '../../store/actions/auth';
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -30,7 +32,7 @@ class SignUp extends React.Component {
                 }
             }
         });
-    }
+    };
 
     inputBlurHandler = (event, elementKey) => {
         const [validity, errMsg] = this.checkElementValidity(this.state.signUpForm[elementKey].validations, event.target.value);
@@ -48,7 +50,7 @@ class SignUp extends React.Component {
                 }
             }
         });
-    }
+    };
 
     inputChangeHandler = (event, elementKey) => {
         const inputValue = event.target.value.trimStart();
@@ -76,7 +78,7 @@ class SignUp extends React.Component {
                 isFormValid: formValidity
             });
         });
-    }
+    };
 
     checkElementValidity = (validations, inputValue) => {
         let isValid = true;
@@ -113,7 +115,7 @@ class SignUp extends React.Component {
         }
 
         return [isValid, errMsg];
-    }
+    };
 
     checkFormValidity = () => {
         let isValid = true;
@@ -126,7 +128,7 @@ class SignUp extends React.Component {
         }
 
         return isValid;
-    }
+    };
 
     formSubmitHandler = async () => {
         let inputValues = {};
@@ -135,17 +137,12 @@ class SignUp extends React.Component {
         }
 
         if (inputValues.password !== inputValues.confirmPassword) {
-            alert('Paswwords do not match');
+            this.props.openModal("Passwords didn't match!");
         } else {
-            try {
-                const { user } = await auth.createUserWithEmailAndPassword(inputValues.email, inputValues.password);
-                await createUserProfileDocument(user, { displayName: inputValues.displayName });
-                this.resetFormHandler();
-            } catch (err) {
-                console.log(err);
-            }
+            this.props.signUp(inputValues.email, inputValues.password, inputValues.displayName);
+            this.resetFormHandler();
         }
-    }
+    };
 
     resetFormHandler = () => {
         this.setState({
@@ -199,9 +196,10 @@ class SignUp extends React.Component {
                         isTouched: false
                     }
                 }
-            }
-        })
-    }
+            },
+            isFormValid: false
+        });
+    };
 
     render() {
         let formElements = [];
@@ -237,8 +235,21 @@ class SignUp extends React.Component {
                     </div>
                 </form>
             </div>
-        )
+        );
     }
 }
 
-export default SignUp;
+const mapStateToProps = state => {
+    return {
+        authenticationError: state.auth.error
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        openModal: message => dispatch(modalActionCreators.openModal(message)),
+        signUp: (email, password, displayName) => dispatch(authActionCreators.signUp(email, password, displayName))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

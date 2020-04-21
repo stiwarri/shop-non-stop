@@ -9,7 +9,7 @@ const SIGN_IN_FORM_CONFIG = {
         },
         validations: {
             required: true,
-            regex: /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/
+            regex: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
         },
         status: {
             isValid: false,
@@ -26,7 +26,9 @@ const SIGN_IN_FORM_CONFIG = {
             value: ''
         },
         validations: {
-            required: true
+            required: true,
+            minLength: 6,
+            maxLength: 20
         },
         status: {
             isValid: false,

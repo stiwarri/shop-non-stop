@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import "./TopnavBar.scss";
-import { auth } from '../../../firebase/firebase.util';
+import { auth } from '../../../utils/firebase.util';
 
 const TopNavBar = ({ currentUser }) => {
 
