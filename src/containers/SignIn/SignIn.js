@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './SignIn.scss';
 import SIGN_IN_FORM_CONFIG from '../../assets/config/sign-in-form';
 import FormInput from '../../components/UI/FormInput/FormInput';
 import Button from '../../components/UI/Button/Button';
-import { auth, signInWithGoogle } from '../../utils/firebase.util';
+import { signInWithGoogle } from '../../utils/firebase.util';
+import * as authActionCreators from '../../store/actions/auth';
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -30,7 +32,7 @@ class SignIn extends React.Component {
                 }
             }
         });
-    }
+    };
 
     inputBlurHandler = (event, elementKey) => {
         const [validity, errMsg] = this.checkElementValidity(this.state.signInForm[elementKey].validations, event.target.value);
@@ -48,7 +50,7 @@ class SignIn extends React.Component {
                 }
             }
         });
-    }
+    };
 
     inputChangeHandler = (event, elementKey) => {
         const inputValue = event.target.value.trimStart();
@@ -76,7 +78,7 @@ class SignIn extends React.Component {
                 isFormValid: formValidity
             });
         });
-    }
+    };
 
     checkElementValidity = (validations, inputValue) => {
         let isValid = true;
@@ -113,7 +115,7 @@ class SignIn extends React.Component {
         }
 
         return [isValid, errMsg];
-    }
+    };
 
     checkFormValidity = () => {
         let isValid = true;
@@ -126,22 +128,22 @@ class SignIn extends React.Component {
         }
 
         return isValid;
-    }
+    };
 
     formSubmitHandler = async event => {
         let inputValues = {};
         for (let el in this.state.signInForm) {
             inputValues[el] = this.state.signInForm[el].properties.value;
         }
-        console.log(inputValues);
 
-        try {
+        this.props.signIn(inputValues.email, inputValues.password);
+        /* try {
             await auth.signInWithEmailAndPassword(inputValues.email, inputValues.password)
             this.resetFormHandler();
         } catch (err) {
             console.log(err);
-        }
-    }
+        } */
+    };
 
     resetFormHandler = () => {
         this.setState({
@@ -170,10 +172,11 @@ class SignIn extends React.Component {
                         isValid: false,
                         isTouched: false
                     }
-                }
+                },
+                isFormValid: false
             }
         });
-    }
+    };
 
     render() {
         let formElements = [];
@@ -214,4 +217,16 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn;
+const mapStateToProps = state => {
+    return {
+
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signIn: (email, password) => dispatch(authActionCreators.signIn(email, password))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
