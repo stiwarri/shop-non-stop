@@ -13,10 +13,6 @@ import * as modalActionCreators from './store/actions/modal';
 import * as authActionCreators from './store/actions/auth';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   signOut = () => {
     this.props.signOut();
   };
