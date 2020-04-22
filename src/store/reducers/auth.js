@@ -4,7 +4,8 @@ const initialState = {
     token: null,
     userId: null,
     loading: false,
-    error: null
+    error: null,
+    redirectPathAfterLogin: '/'
 };
 
 const authReducer = (state = initialState, action) => {
@@ -31,17 +32,17 @@ const authReducer = (state = initialState, action) => {
 
         case actionTypes.SIGN_IN_SUCCESS:
             return {
-                ...state, loading: false, token: action.token, userId: action.userId, error: null
+                ...state, token: action.token, userId: action.userId, loading: false, error: null
             };
 
         case actionTypes.SIGN_IN_FAIL:
             return {
-                ...state, loading: false, error: action.error, token: null, userId: null
+                ...state, token: null, userId: null, loading: false, error: action.error
             };
 
-        case actionTypes.AUTH_LOGOUT:
+        case actionTypes.AUTH_SIGNOUT:
             return {
-                ...state, loading: false, error: null, token: null, userId: null
+                ...state, token: null, userId: null, loading: false, error: null
             };
 
         default:

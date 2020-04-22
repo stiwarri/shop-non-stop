@@ -12,6 +12,7 @@ export const signUp = (email, password, displayName) => {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
             await createUserProfileDocument(user, { displayName: displayName });
             dispatch(signUpSuccess());
+            dispatch(modalActionCreators.openModal('Yay! You are registered with us.'));
         } catch (err) {
             dispatch(signUpFail(err.message));
             dispatch(modalActionCreators.openModal(err.message));
@@ -41,8 +42,8 @@ const signUpFail = error => {
 /**
  * SIGN IN ACTION CREATORS
  */
-export const signIn = (email, password) => {
-    return async dispatch => {
+export const signIn = (email, password, history) => {
+    return async (dispatch, getState) => {
         dispatch(signInStart());
 
         try {
@@ -50,10 +51,14 @@ export const signIn = (email, password) => {
             const token = await userAuthObj.user.getIdToken();
             const userId = userAuthObj.user.uid;
             const expirationDate = new Date(new Date().getTime() + 30 * 1000);
+
             localStorage.setItem('token', token);
-            localStorage.setItem('expirationDate', expirationDate);
             localStorage.setItem('userId', userId);
+            localStorage.setItem('expirationDate', expirationDate);
+
             dispatch(signInSuccess(token, userId));
+            history.push(getState().auth.redirectPathAfterLogin);
+            dispatch(modalActionCreators.openModal('Awesome! You are successfully signed-in.'));
             dispatch(startAuthTimeout(30));
         }
         catch (err) {
@@ -87,17 +92,44 @@ const signInFail = error => {
 export const startAuthTimeout = expirationTime => {
     return dispatch => {
         setTimeout(() => {
-            dispatch(logout());
+            dispatch(signOut());
+            dispatch(modalActionCreators.openModal('OOPS! Your session has expired. Login again.'));
         }, expirationTime * 1000);
     };
 };
 
-export const logout = () => {
+/**
+ * SIGNOUT ACTION CREATORS
+ */
+export const signOut = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
     localStorage.removeItem('userId');
+    localStorage.removeItem('expirationDate');
 
     return {
-        type: actionTypes.AUTH_LOGOUT
+        type: actionTypes.AUTH_SIGNOUT
+    };
+};
+
+/**
+ * AUTHCHECK ACTION CREATORS
+ */
+export const checkAuthStatus = () => {
+    return dispatch => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            dispatch(signOut());
+        } else {
+            const expirationDate = new Date(localStorage.getItem('expirationDate'));
+            if (expirationDate <= new Date()) {
+                dispatch(signOut());
+                dispatch(modalActionCreators.openModal('OOPS! Your session has expired. Login again.'));
+            } else {
+                const userId = localStorage.getItem('userId');
+                dispatch(signInSuccess(token, userId));
+                dispatch(startAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
+            }
+        }
     };
 };

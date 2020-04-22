@@ -2,14 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import "./TopnavBar.scss";
-import { auth } from '../../../utils/firebase.util';
 
-const TopNavBar = ({ currentUser }) => {
-
-  const signOutUser = () => {
-    auth.signOut();
-  }
-
+const TopNavBar = ({ isAuthenticated, handleSignOut }) => {
   return (
     <div className="top-nav-bar">
       <NavLink to="/">
@@ -19,8 +13,8 @@ const TopNavBar = ({ currentUser }) => {
         <NavLink className="option" to="/">Home</NavLink>
         <NavLink className="option" to="/shop">Shop</NavLink>
         {
-          currentUser ?
-            <div className="option" onClick={() => signOutUser()}>Sign Out</div> :
+          isAuthenticated ?
+            <div className="option" onClick={handleSignOut}>Sign Out</div> :
             <NavLink className="option" to="/sign-in">Sign In</NavLink>
         }
       </div>

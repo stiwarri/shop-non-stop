@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import './SignIn.scss';
 import SIGN_IN_FORM_CONFIG from '../../assets/config/sign-in-form';
@@ -136,13 +137,8 @@ class SignIn extends React.Component {
             inputValues[el] = this.state.signInForm[el].properties.value;
         }
 
-        this.props.signIn(inputValues.email, inputValues.password);
-        /* try {
-            await auth.signInWithEmailAndPassword(inputValues.email, inputValues.password)
-            this.resetFormHandler();
-        } catch (err) {
-            console.log(err);
-        } */
+        this.props.signIn(inputValues.email, inputValues.password, this.props.history);
+        this.resetFormHandler();
     };
 
     resetFormHandler = () => {
@@ -217,16 +213,10 @@ class SignIn extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-
-    };
-};
-
 const mapDispatchToProps = dispatch => {
     return {
-        signIn: (email, password) => dispatch(authActionCreators.signIn(email, password))
+        signIn: (email, password, history) => dispatch(authActionCreators.signIn(email, password, history))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(withRouter(SignIn));
