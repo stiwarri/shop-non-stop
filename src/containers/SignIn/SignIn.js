@@ -7,7 +7,7 @@ import SIGN_IN_FORM_CONFIG from '../../assets/config/sign-in-form';
 import FormInput from '../../components/UI/FormInput/FormInput';
 import Button from '../../components/UI/Button/Button';
 import { signInWithGoogle } from '../../utils/firebase.util';
-import * as authActionCreators from '../../redux/actions/auth';
+import * as authActionCreators from '../../redux/actions/authAction';
 
 class SignIn extends React.Component {
     constructor(props) {

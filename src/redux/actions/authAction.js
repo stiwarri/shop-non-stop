@@ -1,6 +1,6 @@
 import { auth, createUserProfileDocument } from '../../utils/firebase.util';
 import * as actionTypes from './actionTypes';
-import * as modalActionCreators from './modal';
+import * as modalActionCreators from './modalAction';
 
 /**
  * SIGN UP ACTION CREATORS

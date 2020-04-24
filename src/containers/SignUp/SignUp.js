@@ -5,8 +5,8 @@ import './SignUp.scss';
 import SIGN_UP_FORM_CONFIG from '../../assets/config/sign-up-form';
 import FormInput from '../../components/UI/FormInput/FormInput';
 import Button from '../../components/UI/Button/Button';
-import * as modalActionCreators from '../../redux/actions/modal';
-import * as authActionCreators from '../../redux/actions/auth';
+import * as modalActionCreators from '../../redux/actions/modalAction';
+import * as authActionCreators from '../../redux/actions/authAction';
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -240,6 +240,7 @@ class SignUp extends React.Component {
 }
 
 const mapStateToProps = state => {
+    console.log('I have been called.');
     return {
         authenticationError: state.auth.error
     };

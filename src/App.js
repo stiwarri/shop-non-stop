@@ -9,8 +9,8 @@ import Modal from './components/UI/Modal/Modal';
 import ShopPage from './pages/ShopPage/ShopPage';
 import TopNavBar from './components/Navigation/TopNavBar/TopNavBar';
 import SignInSignUpPage from './pages/SignInSignUpPage/SignInSignUpPage';
-import * as modalActionCreators from './redux/actions/modal';
-import * as authActionCreators from './redux/actions/auth';
+import * as modalActionCreators from './redux/actions/modalAction';
+import * as authActionCreators from './redux/actions/authAction';
 
 class App extends React.Component {
     render() {

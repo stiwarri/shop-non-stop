@@ -4,8 +4,10 @@ import { NavLink } from "react-router-dom";
 
 import "./TopnavBar.scss";
 import CartDropdown from "../../CartDropdown/CartDropdown";
-import * as authActionCreators from '../../../redux/actions/auth';
-import * as cartActionCreators from '../../../redux/actions/cart';
+
+import * as authActionCreators from '../../../redux/actions/authAction';
+import * as cartActionCreators from '../../../redux/actions/cartAction';
+import { cartItemsCountSelector } from '../../../redux/selectors/cartSelector';
 
 const TopNavBar = ({ authStatus, showCartDropdown, cartItemsCount, signOut, toggleCartDropdown }) => {
     return (
@@ -29,12 +31,11 @@ const TopNavBar = ({ authStatus, showCartDropdown, cartItemsCount, signOut, togg
     );
 };
 
-
 const mapStateToProps = state => {
     return {
         authStatus: state.auth.token !== null,
         showCartDropdown: state.cart.showCartDropdown,
-        cartItemsCount: state.cart.cartItems.reduce((acc, item) => acc + item.quantity, 0)
+        cartItemsCount: cartItemsCountSelector(state)
     };
 };
 

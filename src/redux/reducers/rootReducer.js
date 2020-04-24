@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-import authReducer from './auth';
-import modalReducer from './modal';
-import cartReducer from './cart';
+import authReducer from './authReducer';
+import modalReducer from './modalReducer';
+import cartReducer from './cartReducer';
 
 const rootReducer = combineReducers({
     auth: authReducer,
