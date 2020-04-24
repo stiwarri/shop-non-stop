@@ -5,8 +5,8 @@ import './SignUp.scss';
 import SIGN_UP_FORM_CONFIG from '../../assets/config/sign-up-form';
 import FormInput from '../../components/UI/FormInput/FormInput';
 import Button from '../../components/UI/Button/Button';
-import * as modalActionCreators from '../../store/actions/modal';
-import * as authActionCreators from '../../store/actions/auth';
+import * as modalActionCreators from '../../redux/actions/modal';
+import * as authActionCreators from '../../redux/actions/auth';
 
 class SignUp extends React.Component {
     constructor(props) {

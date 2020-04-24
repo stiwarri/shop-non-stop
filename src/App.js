@@ -9,8 +9,8 @@ import Modal from './components/UI/Modal/Modal';
 import ShopPage from './pages/ShopPage/ShopPage';
 import TopNavBar from './components/Navigation/TopNavBar/TopNavBar';
 import SignInSignUpPage from './pages/SignInSignUpPage/SignInSignUpPage';
-import * as modalActionCreators from './store/actions/modal';
-import * as authActionCreators from './store/actions/auth';
+import * as modalActionCreators from './redux/actions/modal';
+import * as authActionCreators from './redux/actions/auth';
 
 class App extends React.Component {
   signOut = () => {
