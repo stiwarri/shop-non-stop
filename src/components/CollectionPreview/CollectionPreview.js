@@ -9,12 +9,12 @@ const CollectionPreview = ({ title, routeName, items }) => {
             <div className='title'>{title}</div>
             <div className='preview'>
                 {
-                    items.filter((item, index) => index < 4)
-                        .map(item => <ProductPreview key={item.id} {...item} />)
+                    items.filter((_, index) => index < 4)
+                        .map(item => <ProductPreview key={item.id} item={item} />)
                 }
             </div>
         </div>
-    )
+    );
 }
 
 export default CollectionPreview;

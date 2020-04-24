@@ -10,3 +10,6 @@ export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 export const SIGN_IN_FAIL = 'SIGN_IN_FAIL';
 
 export const AUTH_SIGNOUT = 'AUTH_SIGNOUT';
+
+export const TOGGLE_CART_DROPDOWN = 'TOGGLE_CART_DROPDOWN';
+export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
