@@ -12,3 +12,23 @@ export const addItemToCart = item => {
         item: item
     };
 };
+
+const deleteItem = item => {
+    return {
+        type: actionTypes.DELETE_ITEM_FROM_CART,
+        item: item
+    };
+};
+
+export const deleteItemFromCart = item => {
+    return dispatch => {
+        (item.quantity === 1) ? dispatch(removeItemFromCart(item)) : dispatch(deleteItem(item));
+    };
+};
+
+export const removeItemFromCart = item => {
+    return {
+        type: actionTypes.REMOVE_ITEM_FROM_CART,
+        item: item
+    };
+};

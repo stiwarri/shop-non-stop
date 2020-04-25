@@ -8,25 +8,23 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 import { authLoadingSelector } from '../../redux/selectors/authSelector';
 
-class SignInSignUpPage extends React.Component {
-    render() {
-        let pageTemplate = <Spinner />;
+const SignInSignUpPage = ({ loading }) => {
+    let pageTemplate = <Spinner />;
 
-        if (!this.props.loading) {
-            pageTemplate = (
-                <React.Fragment>
-                    <SignIn />
-                    <SignUp />
-                </React.Fragment>
-            );
-        }
-
-        return (
-            <div className="sign-in-sign-up-page">
-                {pageTemplate}
-            </div>
+    if (!loading) {
+        pageTemplate = (
+            <React.Fragment>
+                <SignIn />
+                <SignUp />
+            </React.Fragment>
         );
     }
+
+    return (
+        <div className="sign-in-sign-up-page">
+            {pageTemplate}
+        </div>
+    );
 }
 
 const mapStateToProps = state => {

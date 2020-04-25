@@ -50,7 +50,7 @@ export const signIn = (email, password, history) => {
             const userAuthObj = await auth.signInWithEmailAndPassword(email, password);
             const token = await userAuthObj.user.getIdToken();
             const userId = userAuthObj.user.uid;
-            const expirationDate = new Date(new Date().getTime() + 30 * 1000);
+            const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
 
             localStorage.setItem('token', token);
             localStorage.setItem('userId', userId);
@@ -59,7 +59,7 @@ export const signIn = (email, password, history) => {
             dispatch(signInSuccess(token, userId));
             history.push(getState().auth.redirectPathAfterLogin);
             dispatch(modalActionCreators.openModal('Awesome! You are successfully signed-in.'));
-            dispatch(startAuthTimeout(30));
+            dispatch(startAuthTimeout(3600));
         }
         catch (err) {
             dispatch(signInFail(err.message));

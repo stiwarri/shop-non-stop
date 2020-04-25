@@ -219,4 +219,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(SignIn));
+export default withRouter(connect(null, mapDispatchToProps)(SignIn));

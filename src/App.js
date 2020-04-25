@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './App.scss';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import HomePage from './pages/HomePage/HomePage';
 import Layout from './hoc/Layout/Layout';
 import Modal from './components/UI/Modal/Modal';
@@ -13,6 +14,7 @@ import SignInSignUpPage from './pages/SignInSignUpPage/SignInSignUpPage';
 import * as modalActionCreators from './redux/actions/modalAction';
 import * as authActionCreators from './redux/actions/authAction';
 import { showModalSelector, modalMessageSelector } from './redux/selectors/modalSelector';
+import { authStatusSelector } from './redux/selectors/authSelector';
 
 class App extends React.Component {
     render() {
@@ -30,6 +32,7 @@ class App extends React.Component {
                 <Switch>
                     <Route path='/' exact component={HomePage} />
                     <Route path='/shop' component={ShopPage} />
+                    <Route path='/checkout' component={CheckoutPage} />
                     <Redirect to='/' />
                 </Switch>
             );
@@ -53,6 +56,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        authStatus: authStatusSelector(state),
         showModal: showModalSelector(state),
         modalMessage: modalMessageSelector(state)
     };

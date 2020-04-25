@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import './CartDropdown.scss';
 import Button from '../UI/Button/Button';
 import CartItem from './CartItem/CartItem';
 
+import * as cartActionCreators from '../../redux/actions/cartAction';
 import { cartItemsSelector, cartItemsCountSelector } from '../../redux/selectors/cartSelector';
 
-const CartDropdown = ({ isVisible, cartItems, cartItemsCount }) => {
+const CartDropdown = ({ isVisible, cartItems, cartItemsCount, toggleCartDropdown, history }) => {
     return (
         <div className={`cart-dropdown ${isVisible ? '' : 'hidden'}`}>
             <div className="cart-items">
@@ -17,7 +19,13 @@ const CartDropdown = ({ isVisible, cartItems, cartItemsCount }) => {
                         (<div className="empty-message">Cart is empty!</div>)
                 }
             </div>
-            <Button disable={!cartItemsCount}>GO TO CHECKOUT</Button>
+            <Button
+                disable={!cartItemsCount}
+                clickHandler={() => {
+                    history.push('/checkout');
+                    toggleCartDropdown();
+                }}
+            >GO TO CHECKOUT</Button>
         </div>
     );
 };
@@ -29,4 +37,10 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(CartDropdown);
+const mapDispatchToProps = dispatch => {
+    return {
+        toggleCartDropdown: () => dispatch(cartActionCreators.toggleCartDropdown())
+    };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CartDropdown));

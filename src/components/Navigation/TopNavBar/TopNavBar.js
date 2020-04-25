@@ -24,8 +24,7 @@ const TopNavBar = ({ authStatus, showCartDropdown, cartItemsCount, signOut, togg
                         <div className="option" onClick={signOut}>Sign Out</div> :
                         <NavLink className="option" to="/sign-in">Sign In</NavLink>
                 }
-                {/* replace this with cart icon component */}
-                <span onClick={toggleCartDropdown}>Cart ({cartItemsCount})</span>
+                <span className="cart-toggle-button" onClick={toggleCartDropdown}>Cart ({cartItemsCount})</span>
             </div>
             <CartDropdown isVisible={showCartDropdown} />
         </div>

@@ -1,0 +1,37 @@
+.checkout-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #4a4a4a;
+
+    .item-row-block {
+        text-align: center;
+        width: 20%;
+
+        .inc,
+        .dec {
+            padding: 0 16px;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
+
+    img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .remove-button {
+        cursor: pointer;
+        font-size: 16px;
+
+        &:hover {
+            font-weight: bold;
+            color: red;
+            transform: scale(2, 2);
+            transition: transform .25s;
+        }
+    }
+}
