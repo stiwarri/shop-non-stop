@@ -2,9 +2,6 @@ import { auth, createUserProfileDocument } from '../../utils/firebase.util';
 import * as actionTypes from './actionTypes';
 import * as modalActionCreators from './modalAction';
 
-/**
- * SIGN UP ACTION CREATORS
- */
 export const signUp = (email, password, displayName) => {
     return async dispatch => {
         dispatch(signUpStart());
@@ -39,9 +36,6 @@ const signUpFail = error => {
     };
 };
 
-/**
- * SIGN IN ACTION CREATORS
- */
 export const signIn = (email, password, history) => {
     return async (dispatch, getState) => {
         dispatch(signInStart());
@@ -98,9 +92,6 @@ export const startAuthTimeout = expirationTime => {
     };
 };
 
-/**
- * SIGNOUT ACTION CREATORS
- */
 export const signOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
@@ -111,9 +102,6 @@ export const signOut = () => {
     };
 };
 
-/**
- * AUTHCHECK ACTION CREATORS
- */
 export const checkAuthStatus = () => {
     return dispatch => {
         const token = localStorage.getItem('token');
@@ -131,5 +119,12 @@ export const checkAuthStatus = () => {
                 dispatch(startAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
             }
         }
+    };
+};
+
+export const setRedirectPath = path => {
+    return {
+        type: actionTypes.SET_REDIRECT_PATH,
+        path: path
     };
 };

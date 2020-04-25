@@ -7,11 +7,13 @@ import Button from '../UI/Button/Button';
 import CartItem from './CartItem/CartItem';
 
 import * as cartActionCreators from '../../redux/actions/cartAction';
-import { cartItemsSelector, cartItemsCountSelector } from '../../redux/selectors/cartSelector';
+import * as authActionCreators from '../../redux/actions/authAction';
+import { showCartDropdownSelector, cartItemsSelector, cartItemsCountSelector } from '../../redux/selectors/cartSelector';
+import { authStatusSelector } from '../../redux/selectors/authSelector';
 
-const CartDropdown = ({ isVisible, cartItems, cartItemsCount, toggleCartDropdown, history }) => {
+const CartDropdown = ({ isAuthenticated, showCartDropdown, cartItems, cartItemsCount, setRedirectPath, toggleCartDropdown, history }) => {
     return (
-        <div className={`cart-dropdown ${isVisible ? '' : 'hidden'}`}>
+        <div className={`cart-dropdown ${showCartDropdown ? '' : 'hidden'}`}>
             <div className="cart-items">
                 {
                     cartItemsCount ?
@@ -22,8 +24,14 @@ const CartDropdown = ({ isVisible, cartItems, cartItemsCount, toggleCartDropdown
             <Button
                 disable={!cartItemsCount}
                 clickHandler={() => {
-                    history.push('/checkout');
-                    toggleCartDropdown();
+                    if (isAuthenticated) {
+                        history.push('/checkout');
+                        toggleCartDropdown();
+                    } else {
+                        setRedirectPath('/checkout');
+                        history.push('/sign-in');
+                        toggleCartDropdown();
+                    }
                 }}
             >GO TO CHECKOUT</Button>
         </div>
@@ -32,6 +40,8 @@ const CartDropdown = ({ isVisible, cartItems, cartItemsCount, toggleCartDropdown
 
 const mapStateToProps = state => {
     return {
+        isAuthenticated: authStatusSelector(state),
+        showCartDropdown: showCartDropdownSelector(state),
         cartItems: cartItemsSelector(state),
         cartItemsCount: cartItemsCountSelector(state)
     };
@@ -39,6 +49,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        setRedirectPath: path => dispatch(authActionCreators.setRedirectPath(path)),
         toggleCartDropdown: () => dispatch(cartActionCreators.toggleCartDropdown())
     };
 };
