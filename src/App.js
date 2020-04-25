@@ -9,8 +9,10 @@ import Modal from './components/UI/Modal/Modal';
 import ShopPage from './pages/ShopPage/ShopPage';
 import TopNavBar from './components/Navigation/TopNavBar/TopNavBar';
 import SignInSignUpPage from './pages/SignInSignUpPage/SignInSignUpPage';
+
 import * as modalActionCreators from './redux/actions/modalAction';
 import * as authActionCreators from './redux/actions/authAction';
+import { showModalSelector, modalMessageSelector } from './redux/selectors/modalSelector';
 
 class App extends React.Component {
     render() {
@@ -51,8 +53,8 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        showModal: state.modal.showModal,
-        modalMessage: state.modal.modalMessage
+        showModal: showModalSelector(state),
+        modalMessage: modalMessageSelector(state)
     };
 };
 

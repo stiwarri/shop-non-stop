@@ -6,6 +6,8 @@ import SignIn from '../../containers/SignIn/SignIn';
 import SignUp from '../../containers/SignUp/SignUp';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
+import { authLoadingSelector } from '../../redux/selectors/authSelector';
+
 class SignInSignUpPage extends React.Component {
     render() {
         let pageTemplate = <Spinner />;
@@ -29,8 +31,8 @@ class SignInSignUpPage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        loading: state.auth.loading
+        loading: authLoadingSelector(state)
     };
-}
+};
 
 export default connect(mapStateToProps, null)(SignInSignUpPage);

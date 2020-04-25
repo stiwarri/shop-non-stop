@@ -5,23 +5,27 @@ import './CartDropdown.scss';
 import Button from '../UI/Button/Button';
 import CartItem from './CartItem/CartItem';
 
-const CartDropdown = ({ isVisible, cartItems }) => {
+import { cartItemsSelector, cartItemsCountSelector } from '../../redux/selectors/cartSelector';
+
+const CartDropdown = ({ isVisible, cartItems, cartItemsCount }) => {
     return (
         <div className={`cart-dropdown ${isVisible ? '' : 'hidden'}`}>
             <div className="cart-items">
                 {
-                    cartItems.map(item => <CartItem key={item.id} {...item} />)
+                    cartItemsCount ?
+                        cartItems.map(item => <CartItem key={item.id} {...item} />) :
+                        (<div className="empty-message">Cart is empty!</div>)
                 }
-                <div className="cart-item"></div>
             </div>
-            <Button>GO TO CHECKOUT</Button>
+            <Button disable={!cartItemsCount}>GO TO CHECKOUT</Button>
         </div>
     );
 };
 
 const mapStateToProps = state => {
     return {
-        cartItems: state.cart.cartItems
+        cartItems: cartItemsSelector(state),
+        cartItemsCount: cartItemsCountSelector(state)
     };
 };
 

@@ -7,7 +7,8 @@ import CartDropdown from "../../CartDropdown/CartDropdown";
 
 import * as authActionCreators from '../../../redux/actions/authAction';
 import * as cartActionCreators from '../../../redux/actions/cartAction';
-import { cartItemsCountSelector } from '../../../redux/selectors/cartSelector';
+import { cartItemsCountSelector, showCartDropdownSelector } from '../../../redux/selectors/cartSelector';
+import { authStatusSelector } from '../../../redux/selectors/authSelector';
 
 const TopNavBar = ({ authStatus, showCartDropdown, cartItemsCount, signOut, toggleCartDropdown }) => {
     return (
@@ -33,8 +34,8 @@ const TopNavBar = ({ authStatus, showCartDropdown, cartItemsCount, signOut, togg
 
 const mapStateToProps = state => {
     return {
-        authStatus: state.auth.token !== null,
-        showCartDropdown: state.cart.showCartDropdown,
+        authStatus: authStatusSelector(state),
+        showCartDropdown: showCartDropdownSelector(state),
         cartItemsCount: cartItemsCountSelector(state)
     };
 };

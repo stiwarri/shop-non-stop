@@ -239,13 +239,6 @@ class SignUp extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    console.log('I have been called.');
-    return {
-        authenticationError: state.auth.error
-    };
-};
-
 const mapDispatchToProps = dispatch => {
     return {
         openModal: message => dispatch(modalActionCreators.openModal(message)),
@@ -253,4 +246,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(null, mapDispatchToProps)(SignUp);
