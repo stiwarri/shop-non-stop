@@ -22,7 +22,7 @@ const TopNavBar = ({ authStatus, showCartDropdown, cartItemsCount, signOut, togg
                 {
                     authStatus ?
                         <div className="option" onClick={signOut}>Sign Out</div> :
-                        <NavLink className="option" to="/sign-in">Sign In</NavLink>
+                        <NavLink className="option" to="/sign-in">Authenticate</NavLink>
                 }
                 <span className="cart-toggle-button" onClick={toggleCartDropdown}>Cart ({cartItemsCount})</span>
             </div>
