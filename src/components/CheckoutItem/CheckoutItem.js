@@ -23,7 +23,7 @@ const CheckoutItem = ({ item, addItemToCart, removeItemFromCart, deleteItemFromC
                     onClick={() => addItemToCart(item)}
                 >+</span>
             </div>
-            <div className="item-row-block">{item.price}</div>
+            <div className="item-row-block">${item.price}</div>
             <div
                 className="item-row-block remove-button"
                 onClick={() => removeItemFromCart(item)}
