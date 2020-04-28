@@ -1,9 +1,9 @@
 import React from 'react';
 
 import './ProductPreview.scss';
-import Button from '../../UI/Button/Button';
+import Button from '../../../UI/Button/Button';
 import { connect } from 'react-redux';
-import * as cartActionCreators from '../../../redux/actions/cartAction';
+import * as cartActionCreators from '../../../../redux/actions/cartAction';
 
 const ProductPreview = ({ item, addItemToCart }) => {
     return (
