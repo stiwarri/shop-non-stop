@@ -5,6 +5,7 @@ import './Checkout.scss';
 import CheckoutItem from '../../components/CheckoutItem/CheckoutItem';
 
 import { cartItemsSelector, cartItemsCountSelector, cartTotalPriceSelector } from '../../redux/selectors/cartSelector';
+import StripeCheckoutButton from '../../components/StripeCheckoutButton/StripeCheckoutButton';
 
 class Checkout extends React.Component {
     render() {
@@ -23,8 +24,14 @@ class Checkout extends React.Component {
                             this.props.cartItems.map(el => <CheckoutItem key={el.id} item={el} />) :
                             <div className="empty-message">Cart is empty!</div>
                     }
+                    <div className='payment-warning'>
+                        <strong>*Please use the following test credit card for payments*</strong>
+                        <br />
+                        4242 4242 4242 4242; Exp: 01/20; CVV: 123
+                    </div>
+                    <div className="total-price-tag">Total Price: <strong>${this.props.cartTotalPrice}</strong></div>
+                    <StripeCheckoutButton price={this.props.cartTotalPrice} />
                 </div>
-                <div className="total-price-tag">Total Price: <strong>${this.props.cartTotalPrice}</strong></div>
             </React.Fragment>
         );
     }

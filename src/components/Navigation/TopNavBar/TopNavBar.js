@@ -7,7 +7,7 @@ import CartDropdown from "../../CartDropdown/CartDropdown";
 
 import * as authActionCreators from '../../../redux/actions/authAction';
 import * as cartActionCreators from '../../../redux/actions/cartAction';
-import { cartItemsCountSelector } from '../../../redux/selectors/cartSelector';
+import { cartItemsCountSelector, showCartDropdownSelector } from '../../../redux/selectors/cartSelector';
 import { authStatusSelector } from '../../../redux/selectors/authSelector';
 
 const TopNavBar = ({ authStatus, showCartDropdown, cartItemsCount, signOut, toggleCartDropdown }) => {
@@ -17,24 +17,26 @@ const TopNavBar = ({ authStatus, showCartDropdown, cartItemsCount, signOut, togg
                 <span className="logo">ShopNonStop</span>
             </NavLink>
             <div className="options">
-                <NavLink className="option" to="/">Home</NavLink>
+                <NavLink className="option" to="/" exact>Home</NavLink>
                 <NavLink className="option" to="/shop">Shop</NavLink>
                 {
                     authStatus ?
                         <div className="option" onClick={signOut}>Sign Out</div> :
-                        <NavLink className="option" to="/sign-in">Authenticate</NavLink>
+                        <NavLink className="option" to="/sign-in">Sign In</NavLink>
                 }
-                <span className="cart-toggle-button" onClick={toggleCartDropdown}>Cart ({cartItemsCount})</span>
+                <span className={`cart-toggle-button ${showCartDropdown ? 'active' : ''}`}
+                    onClick={toggleCartDropdown}>Cart ({cartItemsCount})</span>
             </div>
             <CartDropdown />
-        </div>
+        </div >
     );
 };
 
 const mapStateToProps = state => {
     return {
         authStatus: authStatusSelector(state),
-        cartItemsCount: cartItemsCountSelector(state)
+        cartItemsCount: cartItemsCountSelector(state),
+        showCartDropdown: showCartDropdownSelector(state)
     };
 };
 

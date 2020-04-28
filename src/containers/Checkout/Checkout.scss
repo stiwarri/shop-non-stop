@@ -17,12 +17,21 @@
             text-align: center;
         }
     }
-}
 
-.total-price-tag {
-    width: 80%;
-    margin: auto;
-    text-align: end;
-    text-transform: uppercase;
-    font-size: 24px;
+    .StripeCheckout {
+        margin-left: auto;
+    }
+
+    .total-price-tag {
+        margin-left: auto;
+        text-align: end;
+        text-transform: uppercase;
+        font-size: 24px;
+    }
+
+    .payment-warning {
+        text-align: center;
+        color: orange;
+        margin: 24px 0;
+    }
 }

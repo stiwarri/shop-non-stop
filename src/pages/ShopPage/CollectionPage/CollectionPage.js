@@ -5,26 +5,24 @@ import './CollectionPage.scss';
 import ProductPreview from '../../../components/ShopCollections/CollectionPreview/ProductPreview/ProductPreview';
 import { collectionSelector } from '../../../redux/selectors/shopSelector';
 
-const CollectionPage = ({ collections, match }) => {
+const CollectionPage = ({ collection, match }) => {
     return (
-        <div className='category-page'>
-            <div className='title'>{match.params.category}</div>
+        <div className='collection-page'>
+            <div className='title'>{match.params.collection}</div>
             <div className='preview'>
                 {
-                    collections.find(cat => cat.routeName === match.params.category)
-                        .items
-                        .map(item => {
-                            return <ProductPreview key={item.id} item={item} />
-                        })
+                    collection.items.map(item => {
+                        return <ProductPreview key={item.id} item={item} />
+                    })
                 }
             </div>
         </div>
     );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        collections: collectionSelector(state)
+        collection: collectionSelector(ownProps.match.params.collection)(state)
     };
 };
 
