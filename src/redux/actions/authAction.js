@@ -1,4 +1,6 @@
 import { auth, createUserProfileDocument } from '../../utils/firebase.util';
+import { signInWithGoogle } from '../../utils/firebase.util';
+
 import * as actionTypes from './actionTypes';
 import * as modalActionCreators from './modalAction';
 
@@ -33,6 +35,25 @@ const signUpFail = error => {
     return {
         type: actionTypes.SIGN_UP_FAIL,
         error: error
+    };
+};
+
+export const googleSignIn = history => {
+    return async (dispatch, getState) => {
+        dispatch(signInStart());
+
+        const userAuthObj = await signInWithGoogle();
+        const token = await userAuthObj.user.getIdToken();
+        const userId = userAuthObj.user.uid;
+        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+        localStorage.setItem('token', token);
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('expirationDate', expirationDate);
+
+        dispatch(signInSuccess(token, userId));
+        history.push(getState().auth.redirectPathAfterLogin);
+        dispatch(modalActionCreators.openModal('Awesome! You are successfully signed-in.'));
+        dispatch(startAuthTimeout(3600));
     };
 };
 

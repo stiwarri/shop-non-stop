@@ -6,7 +6,6 @@ import './SignIn.scss';
 import SIGN_IN_FORM_CONFIG from '../../assets/config/sign-in-form';
 import FormInput from '../../components/UI/FormInput/FormInput';
 import Button from '../../components/UI/Button/Button';
-import { signInWithGoogle } from '../../utils/firebase.util';
 import * as authActionCreators from '../../redux/actions/authAction';
 
 class SignIn extends React.Component {
@@ -205,7 +204,7 @@ class SignIn extends React.Component {
                     <div className="buttons">
                         <Button disable={!this.state.isFormValid} clickHandler={this.formSubmitHandler}>Sign In</Button>
                         <Button clickHandler={this.resetFormHandler}>Reset</Button>
-                        <Button clickHandler={signInWithGoogle} isThirdPartySignInButton>Sign In With Google</Button>
+                        <Button clickHandler={() => this.props.googleSignIn(this.props.history)} isThirdPartySignInButton>Sign In With Google</Button>
                     </div>
                 </form>
             </div>
@@ -215,7 +214,8 @@ class SignIn extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        signIn: (email, password, history) => dispatch(authActionCreators.signIn(email, password, history))
+        signIn: (email, password, history) => dispatch(authActionCreators.signIn(email, password, history)),
+        googleSignIn: history => dispatch(authActionCreators.googleSignIn(history))
     };
 };
 
