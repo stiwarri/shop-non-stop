@@ -41,19 +41,24 @@ const signUpFail = error => {
 export const googleSignIn = history => {
     return async (dispatch, getState) => {
         dispatch(signInStart());
+        try {
+            const userAuthObj = await signInWithGoogle();
+            const token = await userAuthObj.user.getIdToken();
+            const userId = userAuthObj.user.uid;
+            const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+            localStorage.setItem('token', token);
+            localStorage.setItem('userId', userId);
+            localStorage.setItem('expirationDate', expirationDate);
 
-        const userAuthObj = await signInWithGoogle();
-        const token = await userAuthObj.user.getIdToken();
-        const userId = userAuthObj.user.uid;
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        localStorage.setItem('token', token);
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('expirationDate', expirationDate);
-
-        dispatch(signInSuccess(token, userId));
-        history.push(getState().auth.redirectPathAfterLogin);
-        dispatch(modalActionCreators.openModal('Awesome! You are successfully signed-in.'));
-        dispatch(startAuthTimeout(3600));
+            dispatch(signInSuccess(token, userId));
+            history.push(getState().auth.redirectPathAfterLogin);
+            dispatch(modalActionCreators.openModal('Awesome! You are successfully signed-in.'));
+            dispatch(startAuthTimeout(3600));
+        }
+        catch (err) {
+            dispatch(signInFail(err.message));
+            dispatch(modalActionCreators.openModal(err.message));
+        }
     };
 };
 
