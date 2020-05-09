@@ -21,8 +21,8 @@ const SIGN_UP_FORM_CONFIG = {
         label: 'Email',
         properties: {
             type: 'text',
-            id: 'email',
-            name: 'email',
+            id: 'sign-up-email',
+            name: 'sign-up-email',
             value: ''
         },
         validations: {
@@ -39,8 +39,8 @@ const SIGN_UP_FORM_CONFIG = {
         label: 'Password',
         properties: {
             type: 'password',
-            id: 'password',
-            name: 'password',
+            id: 'sign-up-password',
+            name: 'sign-up-password',
             value: ''
         },
         validations: {

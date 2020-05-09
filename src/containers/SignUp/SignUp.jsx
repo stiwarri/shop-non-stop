@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import './SignUp.scss';
 import SIGN_UP_FORM_CONFIG from '../../assets/config/sign-up-form';
 import FormInput from '../../components/UI/FormInput/FormInput';
-import Button from '../../components/UI/Button/Button';
+import Button from '../../components/UI/Button/Button.jsx';
 import * as modalActionCreators from '../../redux/actions/modalAction';
 import * as authActionCreators from '../../redux/actions/authAction';
 

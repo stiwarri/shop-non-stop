@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import './CartDropdown.scss';
-import Button from '../UI/Button/Button';
+import Button from '../UI/Button/Button.jsx';
 import CartItem from './CartItem/CartItem';
 
 import * as cartActionCreators from '../../redux/actions/cartAction';

@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import "./TopnavBar.scss";
 import CartDropdown from "../../CartDropdown/CartDropdown";
+import AppLogo from '../../../assets/images/logo.png';
 
 import * as authActionCreators from '../../../redux/actions/authAction';
 import * as cartActionCreators from '../../../redux/actions/cartAction';
@@ -13,8 +14,9 @@ import { authStatusSelector } from '../../../redux/selectors/authSelector';
 const TopNavBar = ({ authStatus, showCartDropdown, cartItemsCount, signOut, toggleCartDropdown }) => {
     return (
         <div className="top-nav-bar">
-            <NavLink to="/">
-                <span className="logo">ShopNonStop</span>
+            <NavLink to="/" className="app-title">
+                <img src={AppLogo} alt="logo" className="logo" />
+                <span className="text">ShopNonStop</span>
             </NavLink>
             <div className="options">
                 <NavLink className="option" to="/" exact>Home</NavLink>

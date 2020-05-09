@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './ProductPreview.scss';
-import Button from '../../../UI/Button/Button';
+import Button from '../../../UI/Button/Button.jsx';
 import { connect } from 'react-redux';
 import * as cartActionCreators from '../../../../redux/actions/cartAction';
 

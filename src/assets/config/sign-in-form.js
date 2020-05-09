@@ -3,8 +3,8 @@ const SIGN_IN_FORM_CONFIG = {
         label: 'Email',
         properties: {
             type: 'text',
-            id: 'email',
-            name: 'email',
+            id: 'sign-in-email',
+            name: 'sign-in-email',
             value: ''
         },
         validations: {
@@ -21,8 +21,8 @@ const SIGN_IN_FORM_CONFIG = {
         label: 'Password',
         properties: {
             type: 'password',
-            id: 'password',
-            name: 'password',
+            id: 'sign-in-password',
+            name: 'sign-in-password',
             value: ''
         },
         validations: {

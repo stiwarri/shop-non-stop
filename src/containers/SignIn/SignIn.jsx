@@ -5,7 +5,8 @@ import { withRouter } from 'react-router';
 import './SignIn.scss';
 import SIGN_IN_FORM_CONFIG from '../../assets/config/sign-in-form';
 import FormInput from '../../components/UI/FormInput/FormInput';
-import Button from '../../components/UI/Button/Button';
+import Button from '../../components/UI/Button/Button.jsx';
+
 import * as authActionCreators from '../../redux/actions/authAction';
 
 class SignIn extends React.Component {
@@ -167,9 +168,9 @@ class SignIn extends React.Component {
                         isValid: false,
                         isTouched: false
                     }
-                },
-                isFormValid: false
-            }
+                }
+            },
+            isFormValid: false
         });
     };
 
