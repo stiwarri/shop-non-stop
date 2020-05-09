@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import CollectionPage from './CollectionPage/CollectionPage';
-import ShopCollections from '../../components/ShopCollections/ShopCollections';
+import ShopCollections from '../../containers/ShopCollections/ShopCollections';
 
 const ShopPage = ({ match }) => {
     return (

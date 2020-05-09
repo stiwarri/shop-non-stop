@@ -7,9 +7,20 @@ export const collectionsSelector = createSelector(
     shop => shop.collections
 );
 
+export const loadingCollectionsSelector = createSelector(
+    [shopSelector],
+    shop => shop.loadingCollections
+);
+
 export const collectionSelector = route => {
     return createSelector(
         [collectionsSelector],
-        collections => collections.find(col => col.routeName === route)
+        collections => {
+            for (let key in collections) {
+                if (collections[key].routeName === route) {
+                    return collections[key];
+                }
+            }
+        }
     );
 };
