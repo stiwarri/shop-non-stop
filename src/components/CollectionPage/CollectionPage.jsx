@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import './CollectionPage.scss';
-import ProductPreview from '../../../components/CollectionPreview/ProductPreview/ProductPreview';
-import { collectionSelector } from '../../../redux/selectors/shopSelector';
+import ProductPreview from '../CollectionPreview/ProductPreview/ProductPreview';
+import { collectionSelector } from '../../redux/selectors/shopSelector';
 
 const CollectionPage = ({ collection, match }) => {
     return (

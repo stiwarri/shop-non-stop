@@ -7,7 +7,7 @@ export const getShopCollections = () => {
         try {
             const collectionsRef = firestore.collection('collections');
             const collectionSnapshot = await collectionsRef.get();
-            const shopCollections = collectionSnapshot.docs.map(doc => doc.data());
+            const shopCollections = collectionSnapshot.docs.map(doc => { return { ...doc.data(), id: doc.id } });
             dispatch(getShopCollectionsSuccess(shopCollections));
         } catch (err) {
             dispatch(getShopCollectionsFail());

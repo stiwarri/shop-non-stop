@@ -4,33 +4,25 @@ import { connect } from 'react-redux';
 import './SignInSignUpPage.scss';
 import SignIn from '../../containers/SignIn/SignIn';
 import SignUp from '../../containers/SignUp/SignUp';
-import Spinner from '../../components/UI/Spinner/Spinner';
+import WithSpinner from '../../hoc/WithSpinner/WithSpinner';
 
 import { authLoadingSelector } from '../../redux/selectors/authSelector';
 
-const SignInSignUpPage = ({ loading }) => {
-    let pageTemplate = <Spinner />;
-
-    if (!loading) {
-        pageTemplate = (
+const SignInSignUpPage = ({ isLoading }) => {
+    return (
+        <div className="sign-in-sign-up-page">
             <React.Fragment>
                 <SignIn />
                 <SignUp />
             </React.Fragment>
-        );
-    }
-
-    return (
-        <div className="sign-in-sign-up-page">
-            {pageTemplate}
         </div>
     );
 }
 
 const mapStateToProps = state => {
     return {
-        loading: authLoadingSelector(state)
+        isLoading: authLoadingSelector(state)
     };
 };
 
-export default connect(mapStateToProps, null)(SignInSignUpPage);
+export default connect(mapStateToProps, null)(WithSpinner(SignInSignUpPage));
