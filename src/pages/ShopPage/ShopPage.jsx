@@ -16,10 +16,14 @@ class ShopPage extends React.Component {
     render() {
         return (
             <Switch>
-                <Route path={`${this.props.match.path}`} exact render={() => <ShopCollectionsWithSpinner isLoading={this.props.loadingCollections} />} />
+                <Route
+                    path={`${this.props.match.path}`} exact
+                    render={() => <ShopCollectionsWithSpinner isLoading={this.props.loadingCollections} />} />
                 {
                     this.props.collections ?
-                        <Route path={`${this.props.match.path}/:collection`} render={() => <CollectionPageWithSpinner isLoading={this.props.loadingCollections} />} />
+                        <Route
+                            path={`${this.props.match.path}/:collection`}
+                            render={() => <CollectionPageWithSpinner isLoading={this.props.loadingCollections} />} />
                         : null
                 }
             </Switch>

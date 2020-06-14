@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import './CollectionPage.scss';
 import ProductPreview from '../CollectionPreview/ProductPreview/ProductPreview';
@@ -26,4 +27,4 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export default connect(mapStateToProps)(CollectionPage);
+export default withRouter(connect(mapStateToProps)(CollectionPage));
