@@ -30,7 +30,11 @@ class Checkout extends React.Component {
                         4242 4242 4242 4242; Exp: 01/20; CVV: 123
                     </div>
                     <div className="total-price-tag">Total Price: <strong>${this.props.cartTotalPrice}</strong></div>
-                    <StripeCheckoutButton price={this.props.cartTotalPrice} />
+                    {
+                        this.props.cartItemsCount ?
+                            <StripeCheckoutButton price={this.props.cartTotalPrice} /> :
+                            null
+                    }
                 </div>
             </React.Fragment>
         );

@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './App.scss';
+import ErrorBoundary from './hoc/ErrorBoundary/ErrorBoundary';
 import Layout from './hoc/Layout/Layout.jsx';
 import Modal from './components/UI/Modal/Modal.jsx';
 import Spinner from './components/UI/Spinner/Spinner';
@@ -22,24 +23,28 @@ class App extends React.Component {
     render() {
         let routes = (
             <Switch>
-                <Suspense fallback={<Spinner />}>
-                    <Route path='/' exact component={HomePage} />
-                    <Route path='/shop' component={ShopPage} />
-                    <Route path='/sign-in' component={SignInSignUpPage} />
-                    <Redirect to='/' />
-                </Suspense>
+                <ErrorBoundary>
+                    <Suspense fallback={<Spinner />}>
+                        <Route path='/' exact component={HomePage} />
+                        <Route path='/shop' component={ShopPage} />
+                        <Route path='/sign-in' component={SignInSignUpPage} />
+                        <Redirect to='/' />
+                    </Suspense>
+                </ErrorBoundary>
             </Switch>
         );
 
         if (this.props.authStatus) {
             routes = (
                 <Switch>
-                    <Suspense fallback={<Spinner />}>
-                        <Route path='/' exact component={HomePage} />
-                        <Route path='/shop' component={ShopPage} />
-                        <Route path='/checkout' component={CheckoutPage} />
-                        <Redirect to='/' />
-                    </Suspense>
+                    <ErrorBoundary>
+                        <Suspense fallback={<Spinner />}>
+                            <Route path='/' exact component={HomePage} />
+                            <Route path='/shop' component={ShopPage} />
+                            <Route path='/checkout' component={CheckoutPage} />
+                            <Redirect to='/' />
+                        </Suspense>
+                    </ErrorBoundary>
                 </Switch>
             );
         }
