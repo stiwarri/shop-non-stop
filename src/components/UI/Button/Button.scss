@@ -10,6 +10,12 @@ $main-color: black;
     text-align: center;
     cursor: pointer;
 
+    @media screen and (max-width: 800px) {
+        margin: 0.5rem 0;
+        padding: 0.5rem 1rem;
+        font-size: 12px;
+    }
+
     &:hover {
         background-color: white;
         color: $main-color;

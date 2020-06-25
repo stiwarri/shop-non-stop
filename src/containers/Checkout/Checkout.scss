@@ -34,4 +34,21 @@
         color: orange;
         margin: 24px 0;
     }
+
+    @media screen and (max-width: 800px) {
+        margin: 3rem auto;
+        width: 100%;
+
+        .table-header {
+            padding: 0.5rem;
+
+            .header-text {
+                font-size: 14px;
+            }
+        }
+
+        .total-price-tag {
+            font-size: 16px;
+        }
+    }
 }
